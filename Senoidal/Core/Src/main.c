@@ -118,12 +118,12 @@ int main(void)
   uint16_t valor_temporal = 0;
   char msg[128];
 
-  for(uint16_t x=0; x<360; x++){
+  for(uint16_t x=0; x<363; x++){
 	  buffer[x]= (uint16_t)(127 * sin(2*	3.141592 *x/360) + 127); //Adaptar al maximo valor DAC
   }
 
   HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1, DAC_ALIGN_8B_R, 0x0);
-  //HAL_DAC_Start_DMA(&hdac1, DAC1_CHANNEL_1, (uint32_t*)buffer, 360, DAC_ALIGN_8B_R);
+  HAL_DAC_Start(&hdac1, DAC1_CHANNEL_1);
   HAL_UART_Init(&huart4);
   HAL_UART_Init(&huart3);
   HAL_ADC_Init(&hadc1);
@@ -153,35 +153,40 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  //while (1){
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 	  /* el codigo de pablo lo que hace es guardar en un buffer los puntos de la funcion y usar HAL_DACEx_DualStart_DMA para representar los puntos del buffer,
 	  así no hay que repetir los calculos una vez hechos	*/
+
+	  sprintf(msg, "Inicio \r\n");
+	  printf(msg);
+
 	  while(contador<360){
 
-	  valor_temporal = buffer[contador];
-	  HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1, DAC_ALIGN_8B_R, buffer[contador]);
-	  HAL_Delay(1000);
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, 10000);
-	  numero = HAL_ADC_GetValue(&hadc1);
 
-	  sprintf(msg, "Medido: %lu\r\n",numero);
-	  printf(msg);
-	  sprintf(msg, "Original: %lu\r\n",valor_temporal);
-	  printf(msg);
 
-	  contador++;
+		  valor_temporal = buffer[contador];
+		  HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1, DAC_ALIGN_8B_R, buffer[contador]);
+		  HAL_Delay(20);
+		  HAL_ADC_Start(&hadc1);
+		  HAL_ADC_PollForConversion(&hadc1, 10000);
+		  numero = HAL_ADC_GetValue(&hadc1);
+
+		  sprintf(msg, "Medido: %lu\r\n",numero);
+		  printf(msg);
+		  sprintf(msg, "Original: %u\r\n",valor_temporal);
+	  	  printf(msg);
+
+	  	  contador++;
 	  }
-	  sprintf(msg, "FIN");
+	  sprintf(msg, "FIN \r\n");
 	  printf(msg);
 
 
-  }
+  //}
   /* USER CODE END 3 */
 }
 
