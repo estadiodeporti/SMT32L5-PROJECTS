@@ -8,4 +8,4 @@
 ../Core/Src/stm32l5xx_hal_msp.c:322:6:HAL_OPAMP_MspInit	48	static
 ../Core/Src/stm32l5xx_hal_msp.c:356:6:HAL_OPAMP_MspDeInit	16	static
 ../Core/Src/stm32l5xx_hal_msp.c:384:6:HAL_TIM_Base_MspInit	24	static
-../Core/Src/stm32l5xx_hal_msp.c:420:6:HAL_TIM_Base_MspDeInit	16	static
+../Core/Src/stm32l5xx_hal_msp.c:426:6:HAL_TIM_Base_MspDeInit	16	static

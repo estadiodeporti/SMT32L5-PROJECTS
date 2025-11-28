@@ -168,6 +168,16 @@ int main(void)
 	  lut_sin[i]=sin(i*3.14159265/180);
 	  //printf("Grado %d: %f\r\n", i, (double)lut_sin[i]);
   }
+
+  //vamos a crear una señal inicial
+  FrecuenciaTimer = (110000000/FrecuenciaTimer)-1;//110MHz
+  __HAL_TIM_SET_AUTORELOAD(&htim2, FrecuenciaTimer);
+  for(int i=0;i<360;i++){
+  	funcion[i] = 4095*(Amplitud*lut_sin[(FrecuenciaTimer*i)%360] + Amplitud)/(Amplitud*2);
+  }
+  HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, funcion, 360, DAC_ALIGN_12B_R);
+  BSP_LED_On(LED_BLUE);
+
   while (1)
   {
 
@@ -600,16 +610,19 @@ static void MX_GPIO_Init(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance==TIM1){ //quizas es htim1
 		if(HAL_ADC_GetState(&hadc1)==HAL_ADC_STATE_READY){
+			BSP_LED_On(LED_RED);
 			HAL_ADC_Start_IT(&hadc1);
+			BSP_LED_Off(LED_BLUE);
 		//Aqui haremos el ADC de la frecuencia una vez funcione el de la Amplitud
 		}
 	}
 }
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 	if(hadc->Instance==ADC1){
-		BSP_LED_On(LED_BLUE);
+		BSP_LED_Off(LED_BLUE);
 		switch(escaneo){
 		case(1):
+				BSP_LED_On(LED_RED);
 				lectura2 = HAL_ADC_GetValue(hadc);
 				if(lectura2!=lecturaAnterior2){
 					lecturaAnterior=lectura;
