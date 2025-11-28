@@ -173,7 +173,7 @@ int main(void)
   FrecuenciaTimer = (110000000/FrecuenciaTimer)-1;//110MHz
   __HAL_TIM_SET_AUTORELOAD(&htim2, FrecuenciaTimer);
   for(int i=0;i<360;i++){
-  	funcion[i] = 4095*(Amplitud*lut_sin[(FrecuenciaTimer*i)%360] + Amplitud)/(Amplitud*2);
+  	funcion[i] = 4095*(Amplitud*lut_sin[i] + Amplitud)/(Amplitud*2); //antes i*frecuencia #creo que estaba mal
   }
   HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, funcion, 360, DAC_ALIGN_12B_R);
   BSP_LED_On(LED_BLUE);
@@ -630,7 +630,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 					FrecuenciaTimer = (110000000/FrecuenciaTimer)-1;//110MHz
 					__HAL_TIM_SET_AUTORELOAD(&htim2, FrecuenciaTimer);
 					for(int i=0;i<360;i++){
-						funcion[i] = 4095*(Amplitud*lut_sin[(FrecuenciaTimer*i)%360] + Amplitud)/(Amplitud*2);
+						funcion[i] = 4095*(Amplitud*lut_sin[(i)] + Amplitud)/(Amplitud*2);
 					}
 					HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, funcion, 360, DAC_ALIGN_12B_R);
 					actualizaPantalla();
@@ -645,7 +645,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc){
 					lecturaAnterior=lectura;
 					Amplitud = 5*(lectura/1024);
 					for(int i=0;i<360;i++){
-						funcion[i] = 4095*(Amplitud*lut_sin[(FrecuenciaTimer*i)%360] + Amplitud)/(Amplitud*2);
+						funcion[i] = 4095*(Amplitud*lut_sin[(i)] + Amplitud)/(Amplitud*2);
 					}
 					HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, funcion, 360, DAC_ALIGN_12B_R);
 					actualizaPantalla();
