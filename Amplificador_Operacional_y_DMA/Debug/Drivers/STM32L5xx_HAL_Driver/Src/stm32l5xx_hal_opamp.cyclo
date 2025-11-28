@@ -1,0 +1,10 @@
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:274:19:HAL_OPAMP_Init	11
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:438:19:HAL_OPAMP_DeInit	3
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:488:13:HAL_OPAMP_MspInit	1
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:503:13:HAL_OPAMP_MspDeInit	1
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:539:19:HAL_OPAMP_Start	4
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:581:19:HAL_OPAMP_Stop	5
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:635:19:HAL_OPAMP_SelfCalibrate	12
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:862:19:HAL_OPAMP_Lock	3
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:911:32:HAL_OPAMP_GetTrimOffset	6
+../Drivers/STM32L5xx_HAL_Driver/Src/stm32l5xx_hal_opamp.c:998:24:HAL_OPAMP_GetState	2
